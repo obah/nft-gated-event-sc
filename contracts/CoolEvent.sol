@@ -46,9 +46,9 @@ contract CoolEvent is Ownable {
         bool _hasToken;
 
         if (coolNFT.balanceOf(_account) != 0) {
-            _hasToken = true;
-        } else {
-            _hasToken = false;
+            if (userToken[_account] != 0) {
+                _hasToken = true;
+            }
         }
 
         return _hasToken;

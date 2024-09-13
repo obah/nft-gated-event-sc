@@ -23,7 +23,7 @@ contract CoolEventFactory {
                 revert(0, 0)
             }
         }
-`
+
         contractAddresses.push(contractAddress);
         length_ = contractAddresses.length;
 
