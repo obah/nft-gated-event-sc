@@ -6,11 +6,13 @@ contract CoolEventFactory {
 
     address[] public contractAddresses;
 
-    function createCoolEvent(bytes memory _bytecode,
-        uint256 _salt) external returns (address coolEventAddr_, uint256 length_) {
-            address contractAddress;
+    function createCoolEvent(
+        bytes memory _bytecode,
+        uint256 _salt
+    ) external returns (uint256 length_) {
+        address contractAddress;
 
-            assembly {
+        assembly {
             contractAddress := create2(
                 0,
                 add(_bytecode, 0x20),
@@ -20,15 +22,13 @@ contract CoolEventFactory {
             if iszero(extcodesize(contractAddress)) {
                 revert(0, 0)
             }
-
-            contractAddresses.push(contractAddress);
-            
+        }
+`
+        contractAddresses.push(contractAddress);
         length_ = contractAddresses.length;
 
         emit ContractDeployed(contractAddress);
-        }
-        }
-        
+    }
 
     function getContracts() external view returns (address[] memory) {
         return contractAddresses;
