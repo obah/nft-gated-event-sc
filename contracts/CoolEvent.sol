@@ -40,7 +40,19 @@ contract CoolEvent is Ownable {
 
     function verifyUser(
         address _account
-    ) external view onlyOwner returns (bool) {}
+    ) external view onlyOwner returns (bool) {
+        sanityCheck(_account);
+
+        bool _hasToken;
+
+        if (coolNFT.balanceOf(_account) != 0) {
+            _hasToken = true;
+        } else {
+            _hasToken = false;
+        }
+
+        return _hasToken;
+    }
 
     function getUser(
         address _account
@@ -60,8 +72,12 @@ contract CoolEvent is Ownable {
         }
     }
 
-    function checkNft(address _account) private {
+    function checkNft(address _account) private view {
         if (coolNFT.balanceOf(_account) != 0) {
+            revert UserHasNFT();
+        }
+
+        if (userToken[_account] != 0) {
             revert UserHasNFT();
         }
     }
