@@ -19,8 +19,8 @@ contract CoolEvent is Ownable {
 
     mapping(address => uint40) userToken;
 
-    constructor(uint40 _max_guests, address _coolNFT) Ownable(msg.sender) {
-        MAX_GUESTS = _max_guests;
+    constructor(uint40 _maxGuests, address _coolNFT) Ownable(msg.sender) {
+        MAX_GUESTS = _maxGuests;
         coolNFT = ICoolNft(_coolNFT);
     }
 
